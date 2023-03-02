@@ -1,0 +1,44 @@
+<h1><%= @list.name %></h1>
+
+<p><%= @list.description %></p>
+
+<h2>Bookmarks</h2>
+
+<ul>
+  <% @list.bookmarks.each do |bookmark| %>
+    <li>
+      <%= link_to bookmark.movie.title, bookmark.movie %>
+      <%= bookmark.comment %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>New Bookmark</h3>
+
+<%= form_with model: [@list, @bookmark], url: list_bookmarks_path(@list) do |form| %>
+  <% if @bookmark.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h2>
+
+      <ul>
+        <% @bookmark.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :movie_id %>
+    <%= form.select :movie_id, options_for_select(Movie.all.map { |movie| [movie.title, movie.id] }) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :comment %>
+    <%= form.text_field :comment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
