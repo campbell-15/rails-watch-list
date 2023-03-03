@@ -1,19 +1,8 @@
 class BookmarksController < ApplicationController
-  def index
-    @bookamrks = Bookmark.all
-  end
-
-  def show
-    @bookmark = Bookmark.find(params[:id])
-  end
-
   def new
+    @list = List.find(params[:list_id])
     @bookmark = Bookmark.new
-    @movies_array = Movie.all
-    @movies = []
-    @movies_array.each do |movie|
-      @movies << movie.id
-    end
+    @movies = Movie.all
   end
 
   def create

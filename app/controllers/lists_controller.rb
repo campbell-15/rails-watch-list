@@ -12,13 +12,19 @@ class ListsController < ApplicationController
   end
 
   def create
-    @list = List.create(list_params)
+    @list = List.new(list_params)
 
     if @list.save
-      redirect_to @list, notice: 'List was successfully created.'
+      redirect_to list_path(@list), notice: 'List was successfully created.'
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @list = List.find(params[:id])
+    @list.destroy
+    redirect_to list_path(@list)
   end
 
   private
