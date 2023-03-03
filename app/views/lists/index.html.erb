@@ -1,4 +1,4 @@
-<h1>All Lists</h1>
+<h2>All Lists</h2>
 
 <ul>
   <% @lists.each do |list| %>
@@ -8,4 +8,6 @@
   <% end %>
 </ul>
 
-<%= link_to "create list", new_list_path(@list) %>
+<div class="create_a_list">
+  <%= link_to "create list", new_list_path(@list) %>
+</div>
